@@ -7,6 +7,8 @@ defmodule CashWeb.Router do
 
   scope "/api", CashWeb do
     pipe_through :api
+
+    post "/rules", RuleController, :create
   end
 
   # Enables LiveDashboard only for development
