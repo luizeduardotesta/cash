@@ -18,5 +18,13 @@ defmodule CashWeb.RuleControllerTest do
       assert subject["bonus"] == params.bonus
       assert subject["id"] != nil
     end
+
+    test "return a error when invalid data", %{conn: conn} do
+      params = params_for(:rule, %{description: ""})
+
+      conn = post(conn, Routes.rule_path(conn, :create), params)
+
+      assert %{"description" => ["can't be blank"]} = json_response(conn, 422)["errors"]
+    end
   end
 end
