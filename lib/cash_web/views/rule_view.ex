@@ -5,6 +5,11 @@ defmodule CashWeb.RuleView do
     %{data: render_one(rule, __MODULE__, "rule.json")}
   end
 
+  def render("index.json", %{rules: rules}) do
+    %{data: render_many(rules, __MODULE__, "rule.json")}
+
+  end
+
   def render("rule.json", %{rule: rule}) do
     %{
       description: rule.description,

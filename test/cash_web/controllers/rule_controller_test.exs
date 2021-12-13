@@ -27,4 +27,17 @@ defmodule CashWeb.RuleControllerTest do
       assert %{"description" => ["can't be blank"]} = json_response(conn, 422)["errors"]
     end
   end
+
+  describe "index/2" do
+    test "list a rule when valid data", %{conn: conn} do
+      rule = insert(:rule)
+
+      conn = get(conn, Routes.rule_path(conn, :index))
+
+      assert [subject] = json_response(conn, 200)["data"]
+      assert subject["description"] == rule.description
+      assert subject["bonus"] == rule.bonus
+      assert subject["id"] == rule.id
+    end
+  end
 end
