@@ -12,6 +12,7 @@ defmodule CashWeb.Router do
     get "/rules", RuleController, :index
 
     post "/purchases", PurchaseController, :create
+    get "/purchases", PurchaseController, :index
   end
 
   # Enables LiveDashboard only for development

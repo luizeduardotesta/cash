@@ -12,4 +12,9 @@ defmodule CashWeb.PurchaseController do
       |> render("show.json", purchase: purchase)
     end
   end
+
+  def index(conn, _params) do
+    conn
+    |>render("index.json", purchases: Cash.Acquire.list_purchases())
+  end
 end

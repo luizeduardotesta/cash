@@ -8,8 +8,8 @@ defmodule CashWeb.PurchaseControllerTest do
   end
 
   describe "create/2" do
-    test "return a rule when valid data", %{conn: conn} do
-      params = params_for(:purchase)
+    test "return a purchase when valid data", %{conn: conn} do
+      params = params_with_assocs(:purchase)
 
       conn = post(conn, Routes.purchase_path(conn, :create), params)
 
@@ -28,3 +28,18 @@ defmodule CashWeb.PurchaseControllerTest do
       assert %{"user_cpf" => ["can't be blank"]} = json_response(conn, 422)["errors"]
     end
   end
+
+  describe "index/2" do
+    test "list a purchase when valid data", %{conn: conn} do
+      purchase = insert(:purchase)
+
+      conn = get(conn, Routes.purchase_path(conn, :index))
+
+      assert [subject] = json_response(conn, 200)["data"]
+      assert subject["price"] == purchase.price
+      assert subject["purchase_code"] == purchase.purchase_code
+      assert subject["user_cpf"] == purchase.user_cpf
+      assert subject["id"] == purchase.id
+    end
+  end
+end

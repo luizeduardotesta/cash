@@ -18,5 +18,6 @@ defmodule Cash.Acquire.Purchase do
     purchase
     |> cast(attrs, @required)
     |> validate_required(@required)
+    |> validate_number(:price, greater_than: 0)
   end
 end
