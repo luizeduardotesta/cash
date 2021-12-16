@@ -101,4 +101,6 @@ defmodule Cash.Acquire do
   def change_purchase(%Purchase{} = purchase, attrs \\ %{}) do
     Purchase.changeset(purchase, attrs)
   end
+
+
 end

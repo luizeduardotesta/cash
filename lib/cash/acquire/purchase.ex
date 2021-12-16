@@ -19,5 +19,15 @@ defmodule Cash.Acquire.Purchase do
     |> cast(attrs, @required)
     |> validate_required(@required)
     |> validate_number(:price, greater_than: 0)
+    |> validate_user_cpf()
+  end
+
+  defp validate_user_cpf(changeset) do
+    validate_change(changeset, :user_cpf, fn _, user_cpf ->
+      case Regex.run(~r/^\d{3}.\d{3}.\d{3}-\d{2}$/, user_cpf) do
+        nil -> [user_cpf: "invalid user_cpf format"]
+        [_] -> []
+      end
+    end)
   end
 end
