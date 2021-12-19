@@ -3,4 +3,5 @@ defmodule Cash.Factory do
 
   use Cash.RuleFactory
   use Cash.PurchaseFactory
+  use Cash.UserFactory
 end
