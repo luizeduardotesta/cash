@@ -28,13 +28,7 @@ defmodule Cash.AcquireTest do
       assert {:ok, %Purchase{} = purchase} = Acquire.create_purchase(valid_attrs)
       assert purchase.price == valid_attrs.price
       assert purchase.purchase_code == valid_attrs.purchase_code
-      assert purchase.user_cpf == valid_attrs.user_cpf
-    end
-
-    test "return a error when invalid user_cpf" do
-      invalid_attrs = %{user_cpf: "1234567900"}
-
-      assert {:error, %Ecto.Changeset{}} = Acquire.create_purchase(invalid_attrs)
+      assert purchase.user_id == valid_attrs.user_id
     end
 
     test "create_purchase/1 with invalid data returns error changeset" do
@@ -43,12 +37,11 @@ defmodule Cash.AcquireTest do
 
     test "update_purchase/2 with valid data updates the purchase" do
       purchase = insert(:purchase)
-      update_attrs = %{price: 43, purchase_code: 43, user_cpf: "321.654.987-00"}
+      update_attrs = %{price: 43, purchase_code: 43}
 
       assert {:ok, %Purchase{} = purchase} = Acquire.update_purchase(purchase, update_attrs)
       assert purchase.price == update_attrs.price
       assert purchase.purchase_code == update_attrs.purchase_code
-      assert purchase.user_cpf == update_attrs.user_cpf
     end
 
     test "update_purchase/2 with invalid data returns error changeset" do

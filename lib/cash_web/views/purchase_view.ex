@@ -11,11 +11,12 @@ defmodule CashWeb.PurchaseView do
   end
 
   def render("purchase.json", %{purchase: purchase}) do
-  #  purchase = Cash.Repo.preload(purchase, [:rule])
+    purchase = Cash.Repo.preload(purchase, [:user])
+
     %{
       price: purchase.price,
       purchase_code: purchase.purchase_code,
-      user_cpf: purchase.user_cpf,
+      user_cpf: purchase.user.cpf,
       rule_id: purchase.rule_id,
       id: purchase.id
     }

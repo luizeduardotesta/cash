@@ -9,23 +9,24 @@ defmodule CashWeb.PurchaseControllerTest do
 
   describe "create/2" do
     test "return a purchase when valid data", %{conn: conn} do
-      params = params_with_assocs(:purchase)
+      user = insert(:user)
+      params = params_with_assocs(:purchase, %{user_id: user.id})
 
       conn = post(conn, Routes.purchase_path(conn, :create), params)
 
       assert subject = json_response(conn, 201)["data"]
       assert subject["price"] == params.price
       assert subject["purchase_code"] == params.purchase_code
-      assert subject["user_cpf"] == params.user_cpf
+      assert subject["user_cpf"] == user.cpf
       assert subject["id"] != nil
     end
 
     test "return a error when invalid data", %{conn: conn} do
-      params = params_for(:purchase, %{user_cpf: ""})
+      params = params_for(:purchase, %{price: ""})
 
       conn = post(conn, Routes.purchase_path(conn, :create), params)
 
-      assert %{"user_cpf" => ["can't be blank"]} = json_response(conn, 422)["errors"]
+      assert %{"price" => ["can't be blank"]} = json_response(conn, 422)["errors"]
     end
   end
 
@@ -38,7 +39,7 @@ defmodule CashWeb.PurchaseControllerTest do
       assert [subject] = json_response(conn, 200)["data"]
       assert subject["price"] == purchase.price
       assert subject["purchase_code"] == purchase.purchase_code
-      assert subject["user_cpf"] == purchase.user_cpf
+      assert subject["user_cpf"] == purchase.user.cpf
       assert subject["id"] == purchase.id
     end
   end

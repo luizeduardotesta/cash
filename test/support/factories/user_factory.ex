@@ -4,8 +4,8 @@ defmodule Cash.UserFactory do
       def user_factory do
         %Cash.Accounts.User{
           cpf: "123.456.789-00",
-          email: "some email",
-          name: "some name",
+          email: Faker.Internet.email(),
+          name: Faker.Person.PtBr.name(),
           password: "123456"
         }
       end
