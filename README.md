@@ -1,5 +1,5 @@
 # Cash
-
+This is Cashback 2.0 remaded with some adjusts
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
