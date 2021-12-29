@@ -13,6 +13,8 @@ defmodule CashWeb.Router do
 
     post "/purchases", PurchaseController, :create
     get "/purchases", PurchaseController, :index
+
+    post "/cashback_code/:id", PurchaseController, :cashback_code
   end
 
   # Enables LiveDashboard only for development

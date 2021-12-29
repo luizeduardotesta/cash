@@ -17,4 +17,10 @@ defmodule CashWeb.PurchaseController do
     conn
     |>render("index.json", purchases: Cash.Acquire.list_purchases())
   end
+
+  def cashback_code(conn, params) do
+    conn
+    |> put_status(201)
+    |> render("code.json", purchase: Cash.Acquire.get_purchase!(params["id"]))
+  end
 end
